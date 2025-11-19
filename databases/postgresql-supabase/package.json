@@ -3,21 +3,21 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node script.ts",
+    "dev": "tsx script.ts",
     "test": "jest",
     "test:watch": "jest --watch"
   },
   "devDependencies": {
-    "@types/node": "22.19.0",
-    "prisma": "6.9.0",
+    "@types/node": "22.18.12",
+    "prisma": "7.0.0",
     "supabase": "2.30.4",
-    "ts-node": "10.9.2",
-    "typescript": "5.8.2"
+    "typescript": "5.8.2",
+    "tsx": "^4.20.6",
+    "@types/pg": "^8.15.6"
   },
   "dependencies": {
-    "@prisma/client": "6.9.0"
-  },
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "@prisma/adapter-pg": "7.0.0",
+    "@prisma/client": "7.0.0",
+    "pg": "^8.16.3"
   }
 }

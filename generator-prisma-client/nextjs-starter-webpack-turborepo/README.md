@@ -36,12 +36,7 @@ It also demonstrates that [@prisma/nextjs-monorepo-workaround-plugin](https://ww
 
 ## Prerequisites
 
-To successfully run the project, you will need the following:
-
-- Two **Prisma Postgres** connection strings:
-  - Your **Prisma Postgres + Accelerate connection string** (containing your **Prisma API key**) which you can get by enabling Postgres in a project in your [Prisma Data Platform](https://pris.ly/pdp) account. You will use this connection string to run Prisma migrations.
-  - Your **Prisma Postgres direct TCP connection string** which you will use with Prisma Client.
-    Learn more in the [docs](https://www.prisma.io/docs/postgres/database/direct-connections).
+To successfully run the project, you will need a **Prisma Postgres** connection string from your [Prisma Data Platform](https://pris.ly/pdp) project.
 - [`pnpm`](https://pnpm.io/) installed globally to manage the monorepo workspace.
 
 ## Tech Stack
@@ -55,14 +50,12 @@ To successfully run the project, you will need the following:
   - `next.config.js` -> `next.config.mjs`
   - `postcss.config.js` -> `postcss.config.mjs`
 - Prisma Client with the `prisma-client` generator
-  See the [Prisma schema file](./packages/prisma/prisma/schema.prisma) for details.
+  See the [Prisma schema file](./packages/database/prisma/schema.prisma) for details.
   
   ```prisma
   generator client {
-    provider = "prisma-client"
-    output = "../lib/generated/prisma"
-    previewFeatures = ["driverAdapters", "queryCompiler"]
-    runtime = "nodejs"
+    provider   = "prisma-client"
+    output     = "../src/generated/prisma"
   }
   ```
 
@@ -86,16 +79,12 @@ Create an `.env` file in the `packages/database` directory:
 cd packages/database; touch .env
 ```
 
-Now, open the `.env` file and set the `DATABASE_URL` and `DIRECT_URL` environment variables with the values of your connection string and your Prisma Postgres connection string:
+Now, open the `.env` file and set the `DATABASE_URL` environment variable with your connection string:
 
 ```bash
 # packages/database/.env
 
-# Prisma Postgres connection string (used for migrations)
 DATABASE_URL="__YOUR_PRISMA_POSTGRES_CONNECTION_STRING__"
-
-# Postgres connection string (used for queries by Prisma Client)
-DIRECT_URL="__YOUR_PRISMA_POSTGRES_DIRECT_CONNECTION_STRING__"
 
 NEXT_PUBLIC_URL="http://localhost:3000"
 ```
@@ -106,20 +95,17 @@ Then, create an `.env` file in the `apps/web` directory:
 cd apps/web; touch .env
 ```
 
-Now, open the `.env` file and set the `DIRECT_URL` environment variable with the values of your connection string and your Prisma Postgres connection string:
+Now, open the `.env` file and set the `DATABASE_URL` environment variable with your connection string:
 
 ```bash
 # apps/web/.env
 
-# Postgres connection string (used for queries by Prisma Client)
-DIRECT_URL="__YOUR_PRISMA_POSTGRES_DIRECT_CONNECTION_STRING__"
+DATABASE_URL="__YOUR_PRISMA_POSTGRES_CONNECTION_STRING__"
 
 NEXT_PUBLIC_URL="http://localhost:3000"
 ```
 
-Note that `__YOUR_PRISMA_POSTGRES_CONNECTION_STRING__` is a placeholder value that you need to replace with the values of your Prisma Postgres + Accelerate connection string. Notice that the Accelerate connection string has the following structure: `prisma+postgres://accelerate.prisma-data.net/?api_key=<api_key_value>`.
-
-Note that `__YOUR_PRISMA_POSTGRES_DIRECT_CONNECTION_STRING__` is a placeholder value that you need to replace with the values of your Prisma Postgres direct TCP connection string. The direct connection string has the following structure: `postgres://<username>:<password>@<host>:<port>/<database>`.
+Replace `__YOUR_PRISMA_POSTGRES_CONNECTION_STRING__` with your actual Prisma Postgres connection string.
 
 ### 3. Build the Prisma Client and the Next.js app
 
@@ -131,13 +117,13 @@ pnpm build
 
 ### 4. Run a migration to create the database structure and seed the database
 
-The [Prisma schema file](./packages/prisma/prisma/schema.prisma) contains a single `Quotes` model and a `QuoteKind` enum. You can map this model to the database and create the corresponding `Quotes` table using the following command:
+The [Prisma schema file](./packages/database/prisma/schema.prisma) contains a single `Quotes` model and a `QuoteKind` enum. You can map this model to the database and create the corresponding `Quotes` table using the following command:
 
 ```sh
 pnpm db:migrate:dev -- --name init
 ```
 
-You now have an empty `Quotes` table in your database. Next, run the [seed script](./packages/prisma/prisma/seed.ts) to create some sample records in the table:
+You now have an empty `Quotes` table in your database. Next, run the [seed script](./packages/database/src/seed.ts) to create some sample records in the table:
 
 ```sh
 pnpm db:seed

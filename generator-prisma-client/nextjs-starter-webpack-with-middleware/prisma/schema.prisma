@@ -3,9 +3,8 @@
 
 // See: https://www.prisma.io/docs/orm/prisma-schema/overview/generators#field-reference-1
 generator client {
-  provider        = "prisma-client"
-  output          = "../lib/generated/prisma"
-  previewFeatures = ["driverAdapters", "queryCompiler"]
+  provider   = "prisma-client"
+  output     = "../lib/generated/prisma"
 }
 
 generator edge {
@@ -15,9 +14,7 @@ generator edge {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
 }
 
 enum QuoteKind {

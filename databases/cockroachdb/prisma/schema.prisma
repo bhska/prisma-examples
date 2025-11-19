@@ -1,10 +1,10 @@
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "./generated"
 }
 
 datasource db {
   provider = "cockroachdb"
-  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -25,7 +25,7 @@ model Post {
   authorId  String
   author    User      @relation(fields: [authorId], references: [id])
   comments  Comment[]
-  tags      Tag[]  
+  tags      Tag[]
 }
 
 model Comment {
