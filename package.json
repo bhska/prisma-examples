@@ -1,0 +1,15 @@
+{
+  "name": "prisma-examples",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@prisma/dev": "latest",
+    "@types/node": "^25.0.3",
+    "execa": "^9.5.2",
+    "typescript": "^5.7.2",
+    "vitest": "^3.0.4"
+  }
+}
