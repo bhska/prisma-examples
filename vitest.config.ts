@@ -7,14 +7,11 @@ export default defineConfig({
     pool: 'forks',
     poolOptions: {
       forks: {
-        singleFork: false,
+        singleFork: true,
       },
     },
-    maxConcurrency: 8,
+    maxConcurrency: 1,
     fileParallelism: true,
-    sequence: {
-      concurrent: true,
-    },
     include: ['tests/**/*.test.ts'],
   },
 })
