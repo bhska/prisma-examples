@@ -1,0 +1,43 @@
+{
+  "name": "prisma-compute-tanstack-start",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#/*": "./src/*"
+  },
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "start": "node .output/server/index.mjs",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "prisma db seed",
+    "compute:login": "npx @prisma/cli@latest auth login",
+    "compute:database:create": "npx @prisma/cli@latest database create prisma-compute-tanstack-start --branch main",
+    "compute:deploy": "npx @prisma/cli@latest app deploy --env .env",
+    "compute:open": "npx @prisma/cli@latest app open",
+    "compute:logs": "npx @prisma/cli@latest app logs"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "7.8.0",
+    "@prisma/client": "7.8.0",
+    "@tanstack/react-router": "1.170.10",
+    "@tanstack/react-start": "1.168.18",
+    "dotenv": "17.4.2",
+    "nitro": "3.0.260522-beta",
+    "pg": "8.21.0",
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
+  },
+  "devDependencies": {
+    "@types/node": "24.12.4",
+    "@types/pg": "8.20.0",
+    "@types/react": "19.2.16",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.2",
+    "prisma": "7.8.0",
+    "tsx": "4.22.4",
+    "typescript": "5.9.3",
+    "vite": "8.0.16"
+  }
+}
